@@ -17,10 +17,21 @@ public:
     Ground *ground1;
     Ground *ground2;
     std::vector<Obstacle*>* obstacles;
-    int obstacleCount = 0;
     int obstacleSpawnRate = 100;
     int obstacleSpawnTimer = 0;
 
+    float score = 0;
+private:
+    bool shouldFlash = false;
+    float scoreHoldTimer = 0;
+    float flashRate = 3;
+    float flashTimer = 0;
+    float flashDuration = 0.1;
+    bool whiteScore = false;
+    Color scoreColor = BLACK;
+
+    std::string scoreString = "0";
+public:
     Game();
     ~Game();
     void loop();

@@ -60,6 +60,8 @@ void Game::loop(){
             obstacle->update(dt);
         }
 
+        score += 20 * dt;
+
         window->BeginDrawing();
         window->ClearBackground(RAYWHITE);
         dino->render();
@@ -69,6 +71,41 @@ void Game::loop(){
         for(auto &obstacle : *obstacles){
             obstacle->render();
         }
+
+        if((int)score % 100 == 0 && (int)score != 0){
+            shouldFlash = true;
+            scoreString = std::to_string((int) score);
+        }
+
+        if(shouldFlash){
+            scoreHoldTimer -= dt;
+            if(scoreHoldTimer > 0){
+                scoreHoldTimer -= dt;
+                            } else {
+                scoreHoldTimer = flashRate;
+                shouldFlash = false;
+            }
+
+            if(flashTimer > 0) {
+                flashTimer -= dt;
+            } else {
+                flashTimer = flashDuration;
+                whiteScore = !whiteScore;
+                if(whiteScore)
+                    scoreColor = WHITE;
+                else
+                    scoreColor = BLACK;
+            }
+        } else {
+            scoreString = std::to_string((int) score);
+            if(whiteScore) {
+                whiteScore = false;
+                scoreColor = BLACK;
+            }
+        }
+
+
+        DrawText( scoreString.c_str(), 10, 10, 24, scoreColor);
 
         window->EndDrawing();
     }
