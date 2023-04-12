@@ -8,7 +8,8 @@
 
 class Dino {
 private:
-    raylib::Vector2 size = Vector2(44,47);
+    float scale = 1.5;
+    raylib::Vector2 size = Vector2(44 * scale,47 * scale);
     raylib::Vector2 position;
     raylib::Texture* idleSprite = new raylib::Texture("../assets/images/dino0.png");
     raylib::Texture* runningSprites[4];
@@ -27,9 +28,17 @@ private:
     bool onGround = true;
 public:
     explicit Dino(raylib::Vector2 position);
+    ~Dino();
 
     void render();
     void update(float dt);
+
+    Vector2 getPosition();
+    Vector2 getSize();
+    float getScale();
+
+    bool isAlive();
+    void setAlive(bool alive);
 };
 
 

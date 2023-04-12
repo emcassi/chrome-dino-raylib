@@ -11,6 +11,6 @@ link_directories(lib)
 
 file(GLOB SOURCES "src/*.h" "src/*.cpp")
 
-add_executable(Dino ${SOURCES})
+add_executable(Dino ${SOURCES} src/Obstacle.cpp src/Obstacle.h src/Cactus.cpp src/Cactus.h)
 
 target_link_libraries(Dino raylib)

@@ -15,15 +15,25 @@ Dino::Dino(raylib::Vector2 position){
     animTimer = animDelay;
 }
 
+Dino::~Dino(){
+    delete idleSprite;
+    for(auto & runningSprite : runningSprites){
+        delete runningSprite;
+    }
+}
+
 void Dino::render(){
     if(alive){
-        runningSprites[currentFrame]->Draw(position, 0, 1.5);
+        runningSprites[currentFrame]->Draw(position, 0, scale);
     } else {
-        deadSprite.Draw(position);
+        deadSprite.Draw(position, 0, scale);
     }
 }
 
 void Dino::update(float dt) {
+
+    if(!alive)
+        return;
 
     if(IsKeyPressed(KEY_SPACE) && onGround){
         yVel = -jumpForce;
@@ -49,4 +59,24 @@ void Dino::update(float dt) {
         animTimer -= dt;
     }
 
+}
+
+Vector2 Dino::getPosition() {
+    return position;
+}
+
+Vector2 Dino::getSize() {
+    return size;
+}
+
+float Dino::getScale() {
+    return scale;
+}
+
+bool Dino::isAlive() {
+    return alive;
+}
+
+void Dino::setAlive(bool alive) {
+    this->alive = alive;
 }
