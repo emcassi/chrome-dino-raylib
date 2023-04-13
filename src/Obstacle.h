@@ -23,6 +23,8 @@ protected:
 
 public:
 
+    virtual ~Obstacle();
+
     virtual void update(float dt);
     virtual void render() = 0;
 

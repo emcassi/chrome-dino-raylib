@@ -5,13 +5,18 @@
 #include "Obstacle.h"
 #include <iostream>
 
+Obstacle::~Obstacle() {
+    delete game;
+    delete texture;
+}
+
 void Obstacle::update(float dt) {
 
     if(game->dino->isAlive()) {
         position.x -= speed * dt;
 
         if (position.x < -size.x) {
-            game->obstacles->erase(game->obstacles->begin());
+            game->obstacles.erase(game->obstacles.begin());
         }
 
         raylib::Rectangle rect = raylib::Rectangle(position.x, position.y, size.x, size.y);

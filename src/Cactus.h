@@ -12,7 +12,7 @@ public:
     raylib::Rectangle textureRect;
 
     explicit Cactus(raylib::Vector2 position, Game* game);
-    ~Cactus();
+    ~Cactus() override;
 
     void render() override;
     void update(float dt) override;

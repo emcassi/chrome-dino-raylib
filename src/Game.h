@@ -16,7 +16,7 @@ public:
     Dino *dino;
     Ground *ground1;
     Ground *ground2;
-    std::vector<Obstacle*>* obstacles;
+    std::vector<Obstacle*> obstacles;
     int obstacleSpawnRate = 100;
     int obstacleSpawnTimer = 0;
 

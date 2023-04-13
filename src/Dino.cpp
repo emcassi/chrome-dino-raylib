@@ -17,9 +17,8 @@ Dino::Dino(raylib::Vector2 position){
 
 Dino::~Dino(){
     delete idleSprite;
-    for(auto & runningSprite : runningSprites){
-        delete runningSprite;
-    }
+    delete runningSprites[1];
+    delete runningSprites[3];
 }
 
 void Dino::render(){

@@ -11,24 +11,16 @@ Game::Game() {
     ground1 = new Ground(Vector2(0, dino->getPosition().y + dino->getSize().y - 12), this);
     ground2 = new Ground(Vector2(ground1->getPosition().x + ground1->getSize().x, ground1->getPosition().y), this);
 
-    obstacles = new std::vector<Obstacle *>();
-
     obstacleSpawnTimer = obstacleSpawnRate;
 
     window->SetTargetFPS(60);
 }
 
 Game::~Game() {
-    delete window;
     delete dino;
     delete ground1;
     delete ground2;
-
-    for (auto &obstacle: *obstacles) {
-        delete obstacle;
-    }
-
-    delete obstacles;
+    delete window;
 }
 
 void Game::loop() {
@@ -50,14 +42,14 @@ void Game::loop() {
         if (dino->isAlive()) {
             if (obstacleSpawnTimer <= 0) {
                 auto cactus = new Cactus(raylib::Vector2(1280, ground1->getPosition().y - 25), this);
-                obstacles->push_back(cactus);
+                obstacles.push_back(cactus);
                 obstacleSpawnTimer = obstacleSpawnRate;
             } else {
                 obstacleSpawnTimer -= dt;
             }
         }
 
-        for (auto &obstacle: *obstacles) {
+        for (auto &obstacle: obstacles) {
             obstacle->update(dt);
         }
 
@@ -91,12 +83,13 @@ void Game::loop() {
             } else {
                 scoreString = std::to_string((int) score);
                 if (whiteScore) {
-                    whiteScore = false;
+                    whiteScore =  false;
                     scoreColor = BLACK;
                 }
             }
 
         } else {
+            scoreString = std::to_string((int) score);
             if(whiteScore){
                 whiteScore = false;
                 scoreColor = BLACK;
@@ -109,7 +102,7 @@ void Game::loop() {
         ground1->render();
         ground2->render();
 
-        for (auto &obstacle: *obstacles) {
+        for (auto &obstacle: obstacles) {
             obstacle->render();
         }
 
@@ -119,7 +112,6 @@ void Game::loop() {
         window->EndDrawing();
     }
 
-    window->Close();
 }
 
 int main() {
@@ -128,6 +120,5 @@ int main() {
     game->loop();
 
     delete game;
-
     return 0;
 }

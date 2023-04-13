@@ -18,7 +18,7 @@ Cactus::Cactus(raylib::Vector2 position, Game* game) {
 }
 
 Cactus::~Cactus() {
-    delete texture;
+    Obstacle::~Obstacle();
 }
 
 void Cactus::render() {
